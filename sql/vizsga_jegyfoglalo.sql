@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: localhost
--- Létrehozás ideje: 2023. Máj 14. 20:55
+-- Létrehozás ideje: 2023. Máj 30. 09:35
 -- Kiszolgáló verziója: 10.4.22-MariaDB
 -- PHP verzió: 8.1.2
 
@@ -34,7 +34,7 @@ CREATE TABLE `felhasznalok` (
   `nev` varchar(100) COLLATE utf8_hungarian_ci NOT NULL,
   `email` varchar(100) COLLATE utf8_hungarian_ci NOT NULL,
   `telefon` varchar(30) COLLATE utf8_hungarian_ci DEFAULT NULL,
-  `jelszo` varchar(40) COLLATE utf8_hungarian_ci NOT NULL
+  `jelszo` varchar(40) COLLATE utf8_hungarian_ci DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 --
@@ -42,8 +42,9 @@ CREATE TABLE `felhasznalok` (
 --
 
 INSERT INTO `felhasznalok` (`ID`, `nev`, `email`, `telefon`, `jelszo`) VALUES
-(1, 'Teszt Elek', 'teszt1@gmail.com', '06203334455', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8'),
-(2, 'Példa Béla', 'teszt2@gmail.com', '06304567898', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8');
+(1, 'Teszt Elek', 'teszt1@gmail.com', '06203334455', '2023-05-24 18:28:32'),
+(2, 'Példa Béla', 'teszt2@gmail.com', '06304567898', '2023-05-24 18:28:32'),
+(11, 'Gipsz Jakab', 'gipsz@jakab.hu', '06203334455', '2023-05-24 18:28:32');
 
 -- --------------------------------------------------------
 
@@ -95,17 +96,17 @@ CREATE TABLE `jegyek` (
   `felhasznaloID` int(11) NOT NULL,
   `koncertID` int(11) NOT NULL,
   `jegytipusID` int(11) NOT NULL,
-  `jegysorszamok` text COLLATE utf8_hungarian_ci NOT NULL
+  `db` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 --
 -- A tábla adatainak kiíratása `jegyek`
 --
 
-INSERT INTO `jegyek` (`ID`, `felhasznaloID`, `koncertID`, `jegytipusID`, `jegysorszamok`) VALUES
-(1, 1, 1, 2, '10,11,12,13,14'),
-(2, 2, 1, 3, '20,21,22'),
-(3, 2, 15, 2, '10,11,12,13,15,20');
+INSERT INTO `jegyek` (`ID`, `felhasznaloID`, `koncertID`, `jegytipusID`, `db`) VALUES
+(1, 1, 1, 2, 5),
+(2, 2, 1, 3, 3),
+(3, 2, 15, 2, 6);
 
 -- --------------------------------------------------------
 
@@ -392,7 +393,7 @@ ALTER TABLE `koncertek`
 -- AUTO_INCREMENT a táblához `felhasznalok`
 --
 ALTER TABLE `felhasznalok`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT a táblához `fellepok`
@@ -404,7 +405,7 @@ ALTER TABLE `fellepok`
 -- AUTO_INCREMENT a táblához `jegyek`
 --
 ALTER TABLE `jegyek`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT a táblához `jegytipusok`
